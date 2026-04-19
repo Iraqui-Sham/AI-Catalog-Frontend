@@ -1,8 +1,31 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 export default function Login() {
-    const [formData, setFormData] = useState({ email: '', password: '' });
+
+    const navigate = useNavigate();
+
+    const [form, setForm] = useState({
+        email: "",
+        password: ""
+    });
+
+    const handleLogin = async () => {
+        try {
+            const res = await API.post("/auth/login", form);
+
+            localStorage.setItem("token", res.data);
+
+            alert("Login Success 🔥");
+
+            navigate("/dashboard");
+
+        } catch (err) {
+            alert(err.response?.data || "Error");
+        }
+    };
 
     return (
         <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4 relative overflow-hidden mt-12">
@@ -28,7 +51,9 @@ export default function Login() {
                         <p className="text-slate-500 text-sm mt-2">Enter your details to access your dashboard</p>
                     </div>
 
-                    <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                    <form className="space-y-5" onSubmit={(e) => {
+                        e.preventDefault(); handleLogin();
+                    }}>
                         {/* Email Field */}
                         <div>
                             <label className="block text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-2 ml-1">
@@ -37,6 +62,7 @@ export default function Login() {
                             <input
                                 type="email"
                                 placeholder="name@company.com"
+                                onChange={(e) => setForm({ ...form, email: e.target.value })}
                                 className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all placeholder:text-slate-300 text-slate-900"
                             />
                         </div>
@@ -54,6 +80,7 @@ export default function Login() {
                             <input
                                 type="password"
                                 placeholder="••••••••"
+                                onChange={(e) => setForm({ ...form, password: e.target.value })}
                                 className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all placeholder:text-slate-300 text-slate-900"
                             />
                         </div>
@@ -65,7 +92,7 @@ export default function Login() {
                         </div>
 
                         {/* Submit Button */}
-                        <button className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-sm hover:bg-black transition-all active:scale-[0.98] shadow-xl shadow-slate-200 mt-4 group">
+                        <button type="submit" className="w-full bg-slate-900 text-white py-4 rounded-2xl font-bold text-sm hover:bg-black transition-all active:scale-[0.98] shadow-xl shadow-slate-200 mt-4 group">
                             Sign In
                             <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
                         </button>

@@ -1,8 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 export default function CreateAccount() {
   const navigate = useNavigate();
+
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
+
+  const handleSignup = async () => {
+    try {
+      const res = await API.post("/auth/register", form);
+
+      localStorage.setItem("token", res.data);
+
+      console.log(res.data);
+
+      alert("Signup Success 🎉");
+
+      navigate("/dashboard");
+
+    } catch (err) {
+      alert(err.response?.data || "Error");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-[#fafafa] flex items-center justify-center p-4 relative overflow-hidden mt-20">
@@ -17,7 +41,7 @@ export default function CreateAccount() {
           <div className="flex items-center gap-2">
             <div className="w-2 h-8 bg-gradient-to-b from-orange-500 to-pink-600 rounded-full animate-pulse"></div>
             <h1 className="text-3xl font-black tracking-tight text-slate-900">
-              FitVeSion
+              FitViSion
               <span className="italic font-light text-orange-500">AI</span>
             </h1>
           </div>
@@ -47,7 +71,7 @@ export default function CreateAccount() {
           </div>
 
           {/* FORM */}
-          <form className="space-y-5">
+          <form onSubmit={(e) => { e.preventDefault(); handleSignup(); }} className="space-y-5">
 
             {/* NAME */}
             <div>
@@ -58,6 +82,7 @@ export default function CreateAccount() {
                 type="text"
                 placeholder="John Doe"
                 className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all"
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
               />
             </div>
 
@@ -70,6 +95,7 @@ export default function CreateAccount() {
                 type="email"
                 placeholder="name@company.com"
                 className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all"
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
               />
             </div>
 
@@ -82,11 +108,12 @@ export default function CreateAccount() {
                 type="password"
                 placeholder="Minimum 8 characters"
                 className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-sm focus:ring-2 focus:ring-orange-500/20 focus:border-orange-500 outline-none transition-all"
+                onChange={(e) => setForm({ ...form, password: e.target.value })}
               />
             </div>
 
             {/* BUTTON */}
-            <button className="w-full bg-gradient-to-r from-orange-500 to-pink-500 text-white py-4 rounded-2xl font-bold text-sm hover:brightness-110 transition-all active:scale-[0.98] shadow-xl shadow-orange-200 mt-2 group">
+            <button type="submit" className="w-full bg-gradient-to-r from-orange-500 to-pink-500 text-white py-4 rounded-2xl font-bold text-sm hover:brightness-110 transition-all active:scale-[0.98] shadow-xl shadow-orange-200 mt-2 group">
               Create Account
               <span className="inline-block ml-2 transition-transform group-hover:translate-x-1">→</span>
             </button>
