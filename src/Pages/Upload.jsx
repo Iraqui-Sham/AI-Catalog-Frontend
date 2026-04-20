@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../services/api";
 
 export default function Upload() {
   const [file, setFile] = useState(null);
@@ -23,12 +24,16 @@ export default function Upload() {
     try {
       setLoading(true);
 
-      const res = await axios.post("http://localhost:8081/api/generate", formData);
+      const res = await API.post("/generate", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       navigate("/result", { state: { image: res.data.image } });
 
     } catch (err) {
-      alert("Error generating image");
+      alert(err.response?.data || "Error generating image");
     } finally {
       setLoading(false);
     }

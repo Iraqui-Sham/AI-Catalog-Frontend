@@ -50,7 +50,7 @@ export default function Header() {
           {/* Desktop Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <Link to="/login" className="text-sm font-bold text-slate-600 px-4 py-2 hover:text-slate-900">Log in</Link>
-            <button onClick={() => navigate("/upload")} className="bg-[#f05a1a] text-white px-6 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-orange-200">
+            <button onClick={() => navigate("/createAccount")} className="bg-[#f05a1a] text-white px-6 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-orange-200">
               Try for Free
             </button>
           </div>
