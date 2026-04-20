@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase/firebase";
 import { useNavigate } from "react-router-dom";
 import API from "../services/api";
 
@@ -24,6 +26,31 @@ export default function Login() {
 
         } catch (err) {
             alert(err.response?.data || "Error");
+        }
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, provider);
+
+            const user = result.user;
+
+            console.log(user);
+
+            // 🔥 send to backend
+            const res = await API.post("/auth/google", {
+                name: user.displayName,
+                email: user.email,
+            });
+
+            // 🔐 save token
+            localStorage.setItem("token", res.data.token);
+
+            navigate("/dashboard");
+
+        } catch (error) {
+            console.log(error);
+            alert("Google login failed");
         }
     };
 
@@ -105,7 +132,7 @@ export default function Login() {
                     </div>
 
                     {/* Social Login */}
-                    <button className="w-full bg-white border border-slate-200 text-slate-700 py-3.5 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
+                    <button onClick={handleGoogleLogin} className="w-full bg-white border border-slate-200 text-slate-700 py-3.5 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-3">
                         <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="w-5 h-5" alt="Google" />
                         Google
                     </button>

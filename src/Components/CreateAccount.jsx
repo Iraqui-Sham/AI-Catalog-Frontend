@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { signInWithPopup } from "firebase/auth";
+import { auth, provider } from "../firebase/firebase";
 import API from "../services/api";
 
 export default function CreateAccount() {
+
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
@@ -25,6 +28,31 @@ export default function CreateAccount() {
 
     } catch (err) {
       alert(err.response?.data || "Error");
+    }
+  };
+
+  const handleGoogleSignup = async () => {
+    try {
+      const result = await signInWithPopup(auth, provider);
+
+      const user = result.user;
+
+      console.log(user);
+
+      // 🔥 send to backend
+      const res = await API.post("/auth/google", {
+        name: user.displayName,
+        email: user.email,
+      });
+
+      // 🔐 save token
+      localStorage.setItem("token", res.data.token);
+
+      navigate("/dashboard");
+
+    } catch (error) {
+      console.log(error);
+      alert("Google login failed");
     }
   };
 
@@ -128,7 +156,7 @@ export default function CreateAccount() {
             </div>
 
             {/* GOOGLE LOGIN */}
-            <button className="w-full bg-white border border-slate-200 text-slate-700 py-3.5 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-3 mb-5">
+            <button onClick={handleGoogleSignup} className="w-full bg-white border border-slate-200 text-slate-700 py-3.5 rounded-2xl font-bold text-sm hover:bg-slate-50 transition-all flex items-center justify-center gap-3 mb-5">
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
                 className="w-5 h-5"
