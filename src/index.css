@@ -13,3 +13,7 @@ body {
   margin: 0;
   padding: 0;
 }
+
+.sidebar-link {
+  @apply p-3 rounded-lg hover:bg-orange-100 transition font-medium;
+}
