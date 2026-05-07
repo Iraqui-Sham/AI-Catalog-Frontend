@@ -1,236 +1,129 @@
-// components/DashboardHome.jsx
-import { useState } from 'react';
+import React from 'react';
+import { ImagePlus, Send, PlayCircle, Shirt, UserPlus, RefreshCw, Wand2 } from 'lucide-react';
 
-const quickActions = [
-  {
-    title: 'Generate Fashion Model',
-    description: 'Create professional fashion models',
-    icon: '👗',
-    color: 'from-rose-500 to-pink-500',
-    prompt: 'professional fashion model wearing trendy outfit, studio lighting, high fashion photography'
-  },
-  {
-    title: 'Product to Model',
-    description: 'Place your product on a model',
-    icon: '📸',
-    color: 'from-emerald-500 to-teal-500',
-    prompt: 'product on fashion model hand, lifestyle photography, natural lighting'
-  },
-  {
-    title: 'Background Change',
-    description: 'Replace backgrounds instantly',
-    icon: '🎨',
-    color: 'from-purple-500 to-indigo-500',
-    prompt: 'remove background, studio white background, product photography'
-  }
-];
-
-const recentImages = [
-  {
-    id: 1,
-    src: 'https://images.unsplash.com/photo-1664575197620-516948efa676?w=400&h=400&fit=crop&crop=center',
-    prompt: 'futuristic cyberpunk cityscape at night',
-    likes: 24,
-    downloads: 12
-  },
-  {
-    id: 2,
-    src: 'https://images.unsplash.com/photo-1558618047-3c8c76fdd7f4?w=400&h=400&fit=crop&crop=center',
-    prompt: 'minimalist product photography',
-    likes: 18,
-    downloads: 8
-  },
-  {
-    id: 3,
-    src: 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400&h=400&fit=crop&crop=center',
-    prompt: 'luxury watch on wrist',
-    likes: 32,
-    downloads: 15
-  },
-  {
-    id: 4,
-    src: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=400&h=400&fit=crop&crop=center',
-    prompt: 'fashion model portrait',
-    likes: 41,
-    downloads: 22
-  },
-  {
-    id: 5,
-    src: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=400&fit=crop&crop=center',
-    prompt: 'abstract geometric art',
-    likes: 15,
-    downloads: 7
-  },
-  {
-    id: 6,
-    src: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=400&fit=crop&crop=center',
-    prompt: 'coffee shop interior',
-    likes: 28,
-    downloads: 19
-  }
-];
-
-export default function DashboardHome() {
-  const [prompt, setPrompt] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
-
-  const handleGenerate = () => {
-    setIsGenerating(true);
-    setTimeout(() => setIsGenerating(false), 2000);
-  };
-
-  const ImageCard = ({ image }) => (
-    <div className="group relative bg-white/70 backdrop-blur-xl rounded-3xl shadow-xl hover:shadow-2xl 
-                    transition-all duration-500 hover:-translate-y-2 hover:scale-[1.02] overflow-hidden border border-white/50">
-      <div className="relative h-64 w-full overflow-hidden rounded-2xl">
-        <img 
-          src={image.src}
-          alt={image.prompt}
-          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent 
-                       opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-      </div>
-      
-      <div className="p-6">
-        <p className="text-sm text-gray-600 line-clamp-2 mb-4 group-hover:text-gray-900 transition-colors">
-          {image.prompt}
-        </p>
-        
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 text-sm text-gray-500">
-            <span>❤️ {image.likes}</span>
-            <span>⬇️ {image.downloads}</span>
-          </div>
-          
-          <div className="flex items-center space-x-2 opacity-0 group-hover:opacity-100 transition-all duration-300">
-            <button className="p-2 hover:bg-white/50 rounded-xl transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-            </button>
-            <button className="p-2 hover:bg-white/50 rounded-xl transition-colors">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.5h3m1.5-3l-3-3m0 0l-3 3m3-3v2.5A2.5 2.5 0 019.5 20H5m14-9a2 2 0 00-2-2h-2.5" />
-              </svg>
-            </button>
-          </div>
-        </div>
+const FeatureCard = ({ title, desc, icon: Icon, image, badge }) => (
+  <div className="relative min-w-[280px] h-[320px] rounded-[32px] overflow-hidden group cursor-pointer border border-white/20 transition-all duration-500 hover:scale-[1.02] hover:shadow-2xl">
+    {/* Background Image Overlay */}
+    <img src={image} alt={title} className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
+    
+    {/* Floating Glass Button */}
+    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+      <div className="px-6 py-2.5 rounded-2xl bg-white/20 backdrop-blur-md border border-white/30 text-white text-sm font-semibold flex items-center gap-2">
+        <Icon size={16} />
+        <span>Try Now</span>
       </div>
     </div>
-  );
 
+    {/* Bottom Content */}
+    <div className="absolute bottom-6 left-6 right-6">
+      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-3">
+        <Icon size={14} className="text-white" />
+        <span className="text-[10px] font-bold text-white uppercase tracking-wider">{badge}</span>
+      </div>
+      <p className="text-white text-xs font-medium leading-relaxed opacity-90">{desc}</p>
+    </div>
+  </div>
+);
+
+const Home = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50/30 to-indigo-50/30">
-      {/* Hero Section */}
-      <section className="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-black bg-clip-text text-transparent mb-6">
-            Generate Stunning AI Images
+    <div className="max-w-[1400px] mx-auto space-y-12 pb-20">
+      
+      {/* Top Section: Heading + Input + Banner */}
+      <div className="grid lg:grid-cols-12 gap-8 items-start">
+        
+        <div className="lg:col-span-7 space-y-8">
+          <h1 className="text-5xl font-serif text-slate-900 leading-[1.1] tracking-tight">
+            What will your next <br />
+            <span className="italic text-slate-400">photoshoot</span> be?
           </h1>
-          <p className="text-xl md:text-2xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-            Turn your ideas into breathtaking visuals instantly. Professional quality, zero hassle.
-          </p>
-        </div>
 
-        {/* Prompt Input */}
-        <div className="max-w-4xl mx-auto">
-          <div className="relative bg-white/70 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/50 p-1">
-            <div className="flex">
-              <input
-                type="text"
-                value={prompt}
-                onChange={(e) => setPrompt(e.target.value)}
-                placeholder="Describe your perfect image... e.g., 'futuristic cyberpunk city at sunset, cinematic lighting'"
-                className="flex-1 px-8 py-8 text-xl bg-transparent border-0 focus:ring-0 placeholder-gray-500 outline-none"
+          {/* Main Prompt Box */}
+          <div className="relative group">
+            <div className="bg-white rounded-[32px] border border-slate-200 p-8 shadow-[0_20px_50px_rgba(0,0,0,0.04)] transition-all duration-300 focus-within:border-black focus-within:shadow-xl">
+              <textarea 
+                placeholder="Describe anything you want to create..."
+                className="w-full h-32 resize-none text-xl outline-none placeholder:text-slate-300 font-light"
               />
-              <button
-                onClick={handleGenerate}
-                disabled={isGenerating}
-                className="group bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 
-                          text-white font-bold px-12 py-8 rounded-2xl shadow-xl hover:shadow-2xl 
-                          transform hover:-translate-y-1 transition-all duration-300 whitespace-nowrap
-                          disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-              >
-                {isGenerating ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-6 h-6 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Generating...</span>
-                  </div>
-                ) : (
-                  <>
-                    <span>Generate</span>
-                    <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                    </svg>
-                  </>
-                )}
-              </button>
+              <div className="flex items-center justify-between mt-4">
+                <button className="flex items-center gap-2 px-5 py-2.5 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition-colors">
+                  <ImagePlus size={18} />
+                  <span className="text-sm font-semibold">Add images</span>
+                </button>
+                <button className="p-4 rounded-full bg-black text-white hover:bg-slate-800 transition-all transform hover:scale-105 active:scale-95 shadow-lg shadow-black/20">
+                  <Send size={20} fill="currentColor" />
+                </button>
+              </div>
             </div>
           </div>
         </div>
-      </section>
 
-      {/* Quick Actions */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-20 max-w-7xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent mb-4">
-            Quick Actions
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Start with our popular templates or create from scratch
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {quickActions.map((action, index) => (
-            <div
-              key={index}
-              className="group relative bg-white/70 backdrop-blur-xl rounded-3xl p-10 shadow-xl hover:shadow-2xl 
-                      transition-all duration-500 hover:-translate-y-4 cursor-pointer border border-white/50
-                      hover:bg-white/90 hover:border-orange-200"
-              onClick={() => setPrompt(action.prompt)}
-            >
-              <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 w-24 h-24 
-                             bg-gradient-to-br {action.color} rounded-3xl flex items-center justify-center 
-                             shadow-2xl group-hover:scale-110 transition-transform duration-300">
-                <span className="text-3xl">{action.icon}</span>
-              </div>
-              
-              <div className="text-center pt-16">
-                <h3 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-gray-800">
-                  {action.title}
-                </h3>
-                <p className="text-gray-600 mb-8 leading-relaxed">{action.description}</p>
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                  <span className="text-sm text-orange-600 font-medium">Click to use →</span>
-                </div>
-              </div>
+        {/* Right Banner Card: Create a Video */}
+        <div className="lg:col-span-5 h-full min-h-[400px] relative rounded-[40px] overflow-hidden group border border-slate-100 shadow-2xl">
+          <img 
+            src="https://images.unsplash.com/photo-1539109132314-34a9c668b371?q=80&w=2574&auto=format&fit=crop" 
+            alt="Video creator" 
+            className="absolute inset-0 w-full h-full object-cover grayscale-[20%] group-hover:scale-105 transition-transform duration-1000"
+          />
+          <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
+          <div className="absolute top-10 left-10 space-y-4 max-w-[280px]">
+            <div className="flex items-center gap-2 text-white/80">
+              <PlayCircle size={20} />
+              <span className="text-xs font-bold uppercase tracking-widest">New</span>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Recent Images */}
-      <section className="px-4 sm:px-6 lg:px-8 pb-24 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-16">
-          <div>
-            <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-gray-900 to-gray-700 bg-clip-text text-transparent">
-              Recent Creations
-            </h2>
-            <p className="text-xl text-gray-600 mt-2">Your latest AI-generated masterpieces</p>
+            <h3 className="text-4xl font-serif text-white leading-tight">Create a Video</h3>
+            <p className="text-white/80 text-sm leading-relaxed">Turn any image into a short motion clip in seconds.</p>
+            <button className="mt-4 flex items-center gap-2 px-6 py-3 rounded-2xl bg-white text-black font-bold text-sm hover:bg-slate-100 transition-colors">
+              Try it now <span className="text-lg">→</span>
+            </button>
           </div>
-          <button className="px-8 py-4 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-2xl shadow-xl hover:shadow-2xl hover:from-orange-600 hover:to-orange-700 transform hover:-translate-y-1 transition-all duration-300">
-            View All
-          </button>
         </div>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {recentImages.map((image) => (
-            <ImageCard key={image.id} image={image} />
-          ))}
+      {/* Feature Slider Section */}
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-slate-400">Featured Workflows</h4>
+          <div className="flex gap-2">
+            <div className="w-2 h-2 rounded-full bg-black" />
+            <div className="w-2 h-2 rounded-full bg-slate-200" />
+          </div>
         </div>
-      </section>
+        
+        <div className="flex gap-6 overflow-x-auto pb-8 no-scrollbar scroll-smooth">
+          <FeatureCard 
+            badge="Product to Model"
+            title="Professional Models"
+            desc="Turn wearable product images into professional model shots."
+            icon={Shirt}
+            image="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1000"
+          />
+          <FeatureCard 
+            badge="Try-On"
+            title="Virtual Fit"
+            desc="Visualize how an outfit looks on different body types."
+            icon={UserPlus}
+            image="https://images.unsplash.com/photo-1496747611176-843222e1e57c?q=80&w=1000"
+          />
+          <FeatureCard 
+            badge="Model Swap"
+            title="Face Swap"
+            desc="Change the model while preserving pose and garment details."
+            icon={RefreshCw}
+            image="https://images.unsplash.com/photo-1485230895905-ec40ba36b9bc?q=80&w=1000"
+          />
+          <FeatureCard 
+            badge="Edit"
+            title="Quick Refine"
+            desc="Change color, pose, background with a single prompt."
+            icon={Wand2}
+            image="https://images.unsplash.com/photo-1529139513055-07f9f27edcbb?q=80&w=1000"
+          />
+        </div>
+      </div>
     </div>
   );
-}
+};
+
+export default Home;
