@@ -29,18 +29,18 @@ export default function MobileBottomNav() {
 
   return (
     <>
-      {/* 1. BACKDROP (DIM) */}
+      {/* 1. BACKDROP (MINIMAL - ONLY DISMISS) */}
       {isMenuOpen && (
         <div 
-          className="fixed inset-0 bg-black/20 backdrop-blur-[2px] z-[60] transition-opacity"
+          className="fixed inset-0 z-[50] transition-opacity"
           onClick={toggleMenu}
         />
       )}
 
-      {/* 2. FLOATING DROPDOWN CARD (Fixed to avoid overlap) */}
+      {/* 2. FLOATING DROPDOWN CARD (COMPACT POPUP - BOTTOM RIGHT) */}
       <div 
-        className={`fixed left-1/2 -translate-x-1/2 z-[65] w-[92%] max-w-[400px] bg-white rounded-xl shadow-lg transition-all duration-300 ease-out border border-slate-200 overflow-hidden ${
-          isMenuOpen ? 'bottom-[88px] opacity-100 scale-100 pointer-events-auto' : 'bottom-[60px] opacity-0 scale-95 pointer-events-none'
+        className={`fixed bottom-[88px] right-4 z-[65] w-[280px] bg-white rounded-xl shadow-lg transition-all duration-300 ease-out border border-slate-200 overflow-hidden ${
+          isMenuOpen ? 'opacity-100 scale-100 pointer-events-auto' : 'opacity-0 scale-95 pointer-events-none'
         }`}
       >
         {/* HEADER SECTION */}
@@ -49,7 +49,7 @@ export default function MobileBottomNav() {
             <h3 className="text-[16px] font-bold text-slate-900 leading-tight">Shamsher Alam</h3>
             <p className="text-[12px] text-slate-400 truncate">alammdshamsher956@gmail.com</p>
           </div>
-          <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded-md shrink-0">10 credits</span>
+          {/* <span className="text-[11px] font-bold text-slate-600 bg-slate-100 px-2 py-1 rounded-md shrink-0">10 credits</span> */}
         </div>
 
         <div className="h-[1px] bg-slate-100 mx-4" />
@@ -77,7 +77,7 @@ export default function MobileBottomNav() {
 
         {/* SECTION 3: HELP & PROFILE */}
         <div className="p-2 space-y-0.5">
-          <DropdownItem icon={<MessageCircle size={19} />} label="Chat with us" />
+          {/* <DropdownItem icon={<MessageCircle size={19} />} label="Chat with us" /> */}
           <DropdownItem icon={<HelpCircle size={19} />} label="Help Center" />
           <DropdownItem icon={<Settings size={19} />} label="Update Profile" />
           <DropdownItem icon={<LogOut size={19} />} label="Logout" variant="danger" />

@@ -9,7 +9,8 @@ import {
   Settings,
   LogOut,
   Store,
-  ArrowUpCircle
+  ArrowUpCircle,
+  User,
 } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
 import { createPortal } from "react-dom";
@@ -18,9 +19,9 @@ const navItems = [
   { id: 'Home', icon: Home, label: 'Home', path: '/dashboard' },
   { id: 'Studio', icon: Sparkles, label: 'Studio', path: '/studio' },
   { id: 'Gallery', icon: ImageIcon, label: 'Gallery', path: '/gallery' },
-  { id: 'Billing', icon: CreditCard, label: 'Billing', path: '/billing' },
+  //{ id: 'Billing', icon: CreditCard, label: 'Billing', path: '/billing' },
   { id: 'Chat', icon: MessageCircle, label: 'Chat', path: '/chat' },
-  { id: 'Help', icon: HelpCircle, label: 'Help Center', path: '/help' },
+  { id: 'Help', icon: HelpCircle, label: 'Help', path: '/help' },
 ];
 
 function DropdownItem({ icon: Icon, label, className = "" }) {
@@ -50,13 +51,14 @@ export default function Sidebar({ isCollapsed }) {
   const dropdownRef = useRef();
 
 
-  // 👉 POSITION CALCULATION (REAL FIX)
+  // 👉 POSITION CALCULATION (OPENS UPWARD + RIGHT)
   const handleToggle = () => {
-    if (btnRef.current) {
+    if (btnRef.current && dropdownRef.current) {
       const rect = btnRef.current.getBoundingClientRect();
+      const dropdownHeight = dropdownRef.current?.offsetHeight || 400;
 
       setPos({
-        top: rect.top + window.scrollY,
+        top: rect.top + window.scrollY - dropdownHeight - 8,
         left: rect.right + window.scrollX + 8,
       });
     }
@@ -75,14 +77,7 @@ export default function Sidebar({ isCollapsed }) {
   }, []);
 
   return (
-    <div className="flex flex-col h-[calc(100vh-80px)] bg-white/90 backdrop-blur-xl border-r border-slate-200">
-
-      {/* LOGO */}
-      <div className="h-20 flex items-center justify-center border-b border-slate-200">
-        <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-pink-500 rounded-xl flex items-center justify-center shadow-md shadow-orange-200/30">
-          <Sparkles className="text-white w-5 h-5" />
-        </div>
-      </div>
+    <div className="flex flex-col h-[calc(100vh-64px)] bg-white/90 backdrop-blur-xl border-r border-slate-200">
 
       {/* NAV - NO SCROLL */}
       <nav className="flex-1 overflow-hidden px-3 py-6 space-y-2">
@@ -111,25 +106,7 @@ export default function Sidebar({ isCollapsed }) {
       <div className="px-3 py-4 flex justify-center">
         <button
           ref={btnRef}
-          onClick={(e) => {
-            const rect = e.currentTarget.getBoundingClientRect();
-            const dropdownWidth = 220;
-            const dropdownHeight = dropdownRef.current?.offsetHeight || 400;
-
-            let top = rect.bottom + window.scrollY - dropdownHeight;
-            let left = rect.right + window.scrollX + 8;
-
-            if (top < 10) top = 10;
-            if (top + dropdownHeight > window.innerHeight + window.scrollY) {
-              top = window.innerHeight + window.scrollY - dropdownHeight - 10;
-            }
-            if (left + dropdownWidth > window.innerWidth) {
-              left = rect.left - dropdownWidth - 8;
-            }
-
-            setPos({ top, left });
-            setOpen((prev) => !prev);
-          }}
+          onClick={handleToggle}
           className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 hover:border-slate-300 transition-all active:scale-95 flex-shrink-0"
         >
           <img
@@ -171,8 +148,9 @@ export default function Sidebar({ isCollapsed }) {
           <div className="h-px bg-slate-100 mx-2 my-1" />
 
           <div className="px-1 py-1">
-            <DropdownItem icon={MessageCircle} label="Chat with us" />
-            <DropdownItem icon={HelpCircle} label="Help Center" />
+            {/* <DropdownItem icon={MessageCircle} label="Chat with us" /> */}
+            {/*<DropdownItem icon={HelpCircle} label="Help" />*/}
+            <DropdownItem icon={User} label="Account" />
             <DropdownItem icon={Settings} label="Update Profile" />
           </div>
 

@@ -15,7 +15,7 @@ export default function MainLayout({ children }) {
 
       {/* Fixed Sidebar on Desktop */}
       <aside
-        className={`hidden lg:flex flex-col fixed left-0 top-20 bottom-0 bg-white border-r border-slate-200 transition-all duration-300 ease-in-out ${
+        className={`hidden lg:flex flex-col fixed left-0 top-16 bottom-0 bg-white border-r border-slate-200 transition-all duration-300 ease-in-out ${
           isCollapsed ? 'w-[80px]' : 'w-[180px]'
         }`}
       >
@@ -23,7 +23,7 @@ export default function MainLayout({ children }) {
       </aside>
 
       {/* Main Content Area: Scrollable only */}
-      <div className={`flex-1 flex flex-col min-w-0 h-full pt-20 ${isCollapsed ? 'lg:ml-[80px]' : 'lg:ml-[180px]'} transition-all duration-300 ease-in-out`}>
+      <div className={`flex-1 flex flex-col min-w-0 h-full pt-16 ${isCollapsed ? 'lg:ml-[80px]' : 'lg:ml-[180px]'} transition-all duration-300 ease-in-out`}>
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
           <div className="max-w-[1400px] mx-auto p-5 md:p-8 lg:p-10 pb-20 lg:pb-10">
             {children}
