@@ -93,7 +93,7 @@ export default function ResultsSection({ result, isGenerating, onStartNewGenerat
     const handleDownload = () => {
         if (!result) return;
         const a = document.createElement('a');
-        a.href = result.image;
+        a.href = imageSrc;
         a.download = `${result.name}-generated.jpg`;
         a.click();
     };
@@ -110,6 +110,8 @@ export default function ResultsSection({ result, isGenerating, onStartNewGenerat
         { label: 'Processing', value: '0', color: '#2563eb' },
         { label: 'Failed', value: '0', color: '#dc2626' },
     ];
+
+    const imageSrc = result?.imageUrl || "";
 
     return (
         <div style={{ animation: 'studioFadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both' }}>
@@ -191,7 +193,7 @@ export default function ResultsSection({ result, isGenerating, onStartNewGenerat
 
                     <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.8),transparent_60%)]" />
                     <img
-                        src={result.image}
+                        src={imageSrc}
                         alt={result.name}
                         className="relative z-10 max-h-[480px] w-auto object-contain drop-shadow-[0_25px_60px_rgba(0,0,0,0.18)] transition-transform duration-700 hover:scale-[1.02]"
                         style={{ maxHeight: '28rem', display: 'block', margin: '0 auto' }}
@@ -213,7 +215,10 @@ export default function ResultsSection({ result, isGenerating, onStartNewGenerat
                     </div>
                     <div className="flex items-center gap-2.5">
                         <button
-                            onClick={() => window.open(result.image, '_blank')}
+                            onClick={() => window.open(
+                                imageSrc,
+                                '_blank'
+                            )}
                             className="flex items-center gap-1.5 text-sm font-semibold text-gray-700 border border-gray-200 rounded-xl px-4 py-2.5 hover:bg-gray-50 hover:border-gray-300 transition-all duration-150"
                         >
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

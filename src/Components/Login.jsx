@@ -18,7 +18,20 @@ export default function Login() {
         try {
             const res = await API.post("/auth/login", form);
 
-            localStorage.setItem("token", res.data);
+            localStorage.setItem(
+                "token",
+                res.data.token
+            );
+
+            localStorage.setItem(
+                "credits",
+                res.data.user.credits?.credits || 200
+            );
+
+            localStorage.setItem(
+                "user",
+                JSON.stringify(res.data.user)
+            );
 
             alert("Login Success 🔥");
 
@@ -45,7 +58,8 @@ export default function Login() {
 
             // 🔐 save token
             localStorage.setItem("token", res.data.token);
-
+            localStorage.setItem("credits", res.data.user.credits?.credits || 200);
+            localStorage.setItem("user", JSON.stringify(res.data.user));
             navigate("/dashboard");
 
         } catch (error) {

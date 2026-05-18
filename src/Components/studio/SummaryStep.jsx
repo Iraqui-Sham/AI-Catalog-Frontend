@@ -1,6 +1,21 @@
 import React from 'react';
 
-export default function SummarySection({ selectedProduct, onBack, onStartGeneration }) {
+export default function SummarySection({
+  selectedProducts = [],
+  onBack,
+  onGenerate,
+}) {
+
+  const selectedProduct = selectedProducts[0];
+
+  if (!selectedProduct) {
+    return (
+      <div className="text-center py-10 text-gray-500">
+        No product selected
+      </div>
+    );
+  }
+
   return (
     <div>
       {/* ── Section header ───────────────────────────────────────────────────── */}
@@ -106,10 +121,14 @@ export default function SummarySection({ selectedProduct, onBack, onStartGenerat
           {/* Selected product row */}
           <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-xl mb-5 bg-gray-50/50">
             <div className="w-16 h-16 bg-white rounded-xl overflow-hidden flex-shrink-0 border border-gray-100 shadow-sm">
-              <img src={selectedProduct.preview} alt={selectedProduct.name} className="w-full h-full object-cover" />
+              <img
+                src={selectedProduct.previewUrl}
+                alt={selectedProduct.file?.name}
+                className="w-full h-full object-cover"
+              />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-[0.875rem] font-semibold text-gray-800 truncate leading-snug">{selectedProduct.filename}</p>
+              <p className="text-[0.875rem] font-semibold text-gray-800 truncate leading-snug">{selectedProduct.file?.name}</p>
               <div className="flex items-center gap-2 mt-1.5">
                 <span className="text-[0.6875rem] font-bold bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(15,23,42,0.24)] transition-all duration-300 px-2 py-0.5 rounded-full">1 image</span>
                 <span className="text-xs text-gray-400 font-medium">1.00 Credits</span>
@@ -150,7 +169,7 @@ export default function SummarySection({ selectedProduct, onBack, onStartGenerat
           <p className="text-xs text-gray-400 mt-0.5">Processing begins immediately after confirmation</p>
         </div>
         <button
-          onClick={onStartGeneration}
+          onClick={onGenerate}
           className="flex items-center gap-2.5 bg-gradient-to-r from-gray-900 via-gray-800 to-black text-white hover:scale-[1.02] hover:shadow-[0_12px_40px_rgba(15,23,42,0.24)] transition-all duration-300 text-[0.875rem] font-bold px-7 py-3 rounded-xl hover:bg-gray-700 hover:-translate-y-px active:translate-y-0 whitespace-nowrap"
           style={{
             transition: 'all 0.18s',

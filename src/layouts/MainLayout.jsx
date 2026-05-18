@@ -7,25 +7,19 @@ export default function MainLayout({ children }) {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   return (
-    <div className="flex h-full w-full bg-[#F9FAFB]">
+    <div className="flex h-full w-full bg-[#F5F5F5]">
       {/* Fixed Navbar at Top */}
-      <div className="fixed top-0 left-0 right-0 z-40 lg:left-0">
+      <div className="fixed top-0 left-0 lg:left-16 right-0 z-40">
         <Navbar />
       </div>
 
       {/* Fixed Sidebar on Desktop */}
-      <aside
-        className={`hidden lg:flex flex-col fixed left-0 top-16 bottom-0 bg-white border-r border-slate-200 transition-all duration-300 ease-in-out ${
-          isCollapsed ? 'w-[80px]' : 'w-[180px]'
-        }`}
-      >
-        <Sidebar isCollapsed={isCollapsed} onToggle={() => setIsCollapsed(!isCollapsed)} />
-      </aside>
+      <Sidebar />
 
       {/* Main Content Area: Scrollable only */}
-      <div className={`flex-1 flex flex-col min-w-0 h-full pt-16 ${isCollapsed ? 'lg:ml-[80px]' : 'lg:ml-[180px]'} transition-all duration-300 ease-in-out`}>
+     <div className="flex-1 flex flex-col min-w-0 h-full pt-[52px] lg:ml-16">
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
-          <div className="max-w-[1400px] mx-auto p-5 md:p-8 lg:p-10 pb-20 lg:pb-10">
+          <div className="w-full">
             {children}
           </div>
         </main>

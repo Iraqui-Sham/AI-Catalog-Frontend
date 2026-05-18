@@ -18,7 +18,20 @@ export default function CreateAccount() {
     try {
       const res = await API.post("/auth/register", form);
 
-      localStorage.setItem("token", res.data);
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
+
+      localStorage.setItem(
+        "credits",
+        res.data.user.credits
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
 
       console.log(res.data);
 
@@ -46,7 +59,20 @@ export default function CreateAccount() {
       });
 
       // 🔐 save token
-      localStorage.setItem("token", res.data.token);
+      localStorage.setItem(
+        "token",
+        res.data.token
+      );
+
+      localStorage.setItem(
+        "credits",
+        res.data.user.credits
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
 
       navigate("/dashboard");
 
