@@ -5,35 +5,45 @@ import {
   Home,
   Camera,
   Images,
-  Code2,
-  HelpCircle,
-  User,
   CreditCard,
+  User,
   LogOut,
-  ScrollText,
-  Sun,
-  Moon,
   FileText,
   Shield,
   Scissors,
+  MessageCircle,
+  ChevronRight,
+  Building2,
+  Zap,
+  Phone,
 } from 'lucide-react';
 
 const navItems = [
   { icon: <Home size={20} />, label: 'Home', path: '/dashboard' },
   { icon: <Camera size={20} />, label: 'Studio', path: '/studio' },
-  { icon: <Images size={20} />, label: 'Gallery', path: '/gallery' },
-  { icon: <Code2 size={20} />, label: 'API', path: '/api-docs' },
-  { icon: <HelpCircle size={20} />, label: 'Help', path: '/help' },
+  { icon: <Images size={20} />, label: 'Gallery', path: '/images' },
+  { icon: <CreditCard size={20} />, label: 'Billing', path: '/billing' },
 ];
 
 export default function Sidebar() {
+
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
   const dropdownRef = useRef(null);
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const name = user?.name || "User";
+  const email = user?.email || "";
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("credits");
+    localStorage.removeItem("user");
+    navigate("/login");
+  };
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -66,11 +76,10 @@ export default function Sidebar() {
               key={item.label}
               whileHover={{ scale: 1.05 }}
               onClick={() => navigate(item.path)}
-              className={`relative w-11 h-11 rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all duration-150 group ${
-                isActive
-                  ? 'bg-[#F0F0F0] text-[#111111]'
-                  : 'text-[#AAAAAA] hover:bg-[#F5F5F5] hover:text-[#111111]'
-              }`}
+              className={`relative w-11 h-11 rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all duration-150 group ${isActive
+                ? 'bg-[#F0F0F0] text-[#111111]'
+                : 'text-[#666666] hover:bg-[#F5F5F5] hover:text-[#111111]'
+                }`}
             >
               {isActive && (
                 <motion.span
@@ -92,6 +101,15 @@ export default function Sidebar() {
             </motion.button>
           );
         })}
+        {/* WhatsApp Support */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          onClick={() => window.open('https://wa.me/919110112197', '_blank')}
+          className="relative w-11 h-11 rounded-xl flex flex-col items-center justify-center gap-0.5 transition-all duration-150 text-[#666666] hover:bg-[#F5F5F5] hover:text-[#25D366]"
+        >
+          <span className="relative z-10"><MessageCircle size={20} /></span>
+          <span className="relative z-10 text-[9px] font-medium leading-none">Support</span>
+        </motion.button>
       </nav>
 
       {/* Avatar + dropdown */}
@@ -119,61 +137,51 @@ export default function Sidebar() {
               {/* User info */}
               <div className="px-4 py-3 border-b border-[#F0F0F0]">
                 <p className="text-sm font-semibold text-[#111111]">
-                  Shamsher Alam
+                  {name}
                 </p>
 
                 <p className="text-xs text-[#999999] truncate">
-                  alammdshamsher956@gmail.com
+                  {email}
                 </p>
               </div>
 
               {/* Menu items */}
               <div className="py-1.5">
-                {[
-                  { icon: <User size={14} />, label: 'Account' },
-                  { icon: <CreditCard size={14} />, label: 'Billing' },
-                  { icon: <LogOut size={14} />, label: 'Log out' },
-                  { icon: <ScrollText size={14} />, label: 'Changelog' },
-                ].map((item) => (
-                  <button
-                    key={item.label}
-                    className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[#333333] hover:bg-[#F5F5F5] transition-colors duration-100"
-                  >
-                    <span className="text-[#777777]">{item.icon}</span>
 
-                    {item.label}
-                  </button>
-                ))}
+                {/* Update Account */}
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[#333333] hover:bg-[#F5F5F5] transition-colors duration-100"
+                  onClick={() => { navigate('/account'); setDropdownOpen(false); }}
+                >
+                  <span className="text-[#777777]"><User size={14} /></span>
+                  Update Account
+                </button>
 
-                {/* Theme toggle */}
-                <div className="flex items-center justify-between px-4 py-2.5">
-                  <div className="flex items-center gap-3 text-sm text-[#333333]">
-                    <span className="text-[#777777]">
-                      {darkMode ? (
-                        <Moon size={14} />
-                      ) : (
-                        <Sun size={14} />
-                      )}
-                    </span>
+                {/* Upgrade Plan */}
+                <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[#8B5CF6] via-[#A855F7] to-[#8B5CF6] hover:from-[#9333EA] hover:via-[#A855F7] hover:to-[#9333EA] hover:shadow-md hover:shadow-purple-200 transition-all duration-200">
+                  <Zap size={14} className="text-yellow-300" />
+                  Upgrade Plan
+                </button>
 
-                    Theme
-                  </div>
+                {/* WhatsApp Support */}
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[#333333] hover:bg-[#F5F5F5] transition-colors duration-100"
+                  onClick={() => window.open('https://wa.me/919110112197', '_blank')}
+                >
+                  <span className="text-[#25D366]"><MessageCircle size={14} /></span>
+                  WhatsApp Support
+                </button>
 
-                  <button
-                    onClick={() => setDarkMode((v) => !v)}
-                    className={`relative w-10 h-5 rounded-full transition-colors duration-200 ${
-                      darkMode ? 'bg-[#111111]' : 'bg-[#E5E5E5]'
-                    }`}
-                  >
-                    <span
-                      className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform duration-200 ${
-                        darkMode ? 'translate-x-5' : 'translate-x-0.5'
-                      }`}
-                    />
-                  </button>
-                </div>
+                {/* Log out */}
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-[#EF4444] hover:bg-[#FFF5F5] transition-colors duration-100"
+                  onClick={handleLogout}
+                >
+                  <span><LogOut size={14} /></span>
+                  Log out
+                </button>
+
               </div>
-
               {/* Footer links */}
               <div className="border-t border-[#F0F0F0] px-4 py-2.5 flex gap-3">
                 <button className="flex items-center gap-1.5 text-xs text-[#999999] hover:text-[#333333] transition-colors">

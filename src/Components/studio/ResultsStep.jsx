@@ -114,8 +114,13 @@ export default function ResultsSection({ result, isGenerating, onStartNewGenerat
     const imageSrc = result?.imageUrl || "";
 
     return (
-        <div style={{ animation: 'studioFadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both' }}>
-
+        <div
+            className="pb-32 sm:pb-10"
+            style={{
+                animation:
+                    'studioFadeUp 0.4s cubic-bezier(0.22,1,0.36,1) both'
+            }}
+        >
             {/* ── Header card ──────────────────────────────────────────────────────── */}
             <div
                 className="bg-white/75 backdrop-blur-xl rounded-[28px] border border-white/60 px-7 py-6 mb-5"
@@ -245,9 +250,8 @@ export default function ResultsSection({ result, isGenerating, onStartNewGenerat
 
             {/* ── Start new generation ──────────────────────────────────────────────── */}
             <div
-                className="bg-white/75 backdrop-blur-xl rounded-[28px] border border-white/60 px-7 py-6 text-center"
-                style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04)' }}
-            >
+                className="bg-white/75 backdrop-blur-xl rounded-[28px] border border-white/60 px-7 py-6 text-center mb-28 sm:mb-8 pb-[calc(env(safe-area-inset-bottom)+24px)]"
+                style={{ boxShadow: '0 1px 4px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04)' }}>
                 <button
                     onClick={onStartNewGeneration}
                     className="inline-flex items-center gap-2.5 bg-gray-900 text-white text-[0.875rem] font-bold px-8 py-3 rounded-xl hover:bg-gray-700 hover:-translate-y-px active:translate-y-0 transition-all duration-150"

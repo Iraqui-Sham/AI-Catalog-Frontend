@@ -17,7 +17,7 @@ export default function MainLayout({ children }) {
       <Sidebar />
 
       {/* Main Content Area: Scrollable only */}
-     <div className="flex-1 flex flex-col min-w-0 h-full pt-[52px] lg:ml-16">
+      <div className="flex-1 flex flex-col min-w-0 h-full pt-[52px] lg:ml-16">
         <main className="flex-1 overflow-y-auto overflow-x-hidden">
           <div className="w-full">
             {children}

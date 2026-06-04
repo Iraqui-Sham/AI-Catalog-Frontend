@@ -6,26 +6,30 @@ export default function Navbar() {
   const [credits, setCredits] = useState(null);
   const [userName, setUserName] = useState("");
 
-  useEffect(() => {
-
-    const savedCredits =
-      localStorage.getItem("credits");
-
-    const savedUser =
-      localStorage.getItem("user");
+  // Credits sync karne ka function
+  const syncCredits = () => {
+    const savedCredits = localStorage.getItem("credits");
+    const savedUser = localStorage.getItem("user");
 
     if (savedCredits) {
       setCredits(Number(savedCredits));
     }
-
     if (savedUser) {
-
-      const parsedUser =
-        JSON.parse(savedUser);
-
-      setUserName(parsedUser.name);
+      try {
+        const user = JSON.parse(savedUser);
+        setUserName(user?.name || "");
+      } catch {}
     }
+  };
 
+  useEffect(() => {
+    syncCredits();
+    window.addEventListener("creditsUpdated", syncCredits);
+    window.addEventListener("storage", syncCredits);
+    return () => {
+      window.removeEventListener("creditsUpdated", syncCredits);
+      window.removeEventListener("storage", syncCredits);
+    };
   }, []);
 
   return (

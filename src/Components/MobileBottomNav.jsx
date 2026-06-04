@@ -7,32 +7,43 @@ import {
   Camera,
   Images,
   MoreHorizontal,
-  Code2,
-  HelpCircle,
-  CreditCard,
-  Sun,
-  Moon,
   LogOut,
   User,
-  ScrollText,
   X,
+  MessageCircle,
+  Zap,
+  CreditCard,
 } from 'lucide-react';
 
 const mainItems = [
-  { icon: <Home size={22} />, label: 'Home', path: '/' },
+  { icon: <Home size={22} />, label: 'Home', path: '/dashboard' },
   { icon: <Camera size={22} />, label: 'Studio', path: '/studio' },
-  { icon: <Images size={22} />, label: 'Gallery', path: '/gallery' },
-  { icon: <MoreHorizontal size={22} />, label: 'More', isMore: true },
+  { icon: <Images size={22} />, label: 'Gallery', path: '/images' },
 ];
 
 export default function MobileBottomNav() {
+
   const [moreOpen, setMoreOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(false);
 
   const containerRef = useRef(null);
 
   const location = useLocation();
   const navigate = useNavigate();
+
+  const user = JSON.parse(localStorage.getItem("user"));
+  const name = user?.name || "User";
+  const email = user?.email || "";
+
+  const handleLogout = () => {
+
+    localStorage.removeItem("token");
+
+    localStorage.removeItem("credits");
+
+    localStorage.removeItem("user");
+
+    navigate("/login");
+  };
 
   // Close popup when clicking outside
   useEffect(() => {
@@ -74,11 +85,12 @@ export default function MobileBottomNav() {
               }}
               className="absolute bottom-[calc(100%+8px)] right-3 z-50 w-60 bg-white rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.14)] border border-[#E8E8E8] overflow-hidden"
             >
-              {/* Popup header */}
-              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#F2F2F2]">
-                <span className="text-sm font-semibold text-[#111111] tracking-tight">
-                  More
-                </span>
+              {/* Popup header - User Info */}
+              <div className="flex items-center justify-between px-4 py-4 border-b border-[#F2F2F2]">
+                <div>
+                  <p className="text-sm font-bold text-[#111111] tracking-tight">{name}</p>
+                  <p className="text-xs text-[#999999] truncate max-w-[160px]">{email}</p>
+                </div>
 
                 <button
                   onClick={() => setMoreOpen(false)}
@@ -90,55 +102,51 @@ export default function MobileBottomNav() {
 
               {/* Menu items */}
               <div className="py-1">
-                {[
-                  { icon: <User size={15} />, label: 'Account' },
-                  { icon: <Code2 size={15} />, label: 'API' },
-                  { icon: <HelpCircle size={15} />, label: 'Help' },
-                  { icon: <CreditCard size={15} />, label: 'Billing' },
-                  { icon: <ScrollText size={15} />, label: 'Changelog' },
-                ].map((item) => (
-                  <button
-                    key={item.label}
-                    className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#222222] hover:bg-[#F7F7F7] active:bg-[#F0F0F0] transition-colors duration-100"
-                  >
-                    <span className="text-[#888888]">{item.icon}</span>
 
-                    <span className="font-medium">{item.label}</span>
-                  </button>
-                ))}
+                {/* Update Account */}
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#222222] hover:bg-[#F7F7F7] active:bg-[#F0F0F0] transition-colors duration-100"
+                  onClick={() => { navigate('/account'); setMoreOpen(false); }}
+                >
+                  <span className="text-[#888888]"><User size={15} /></span>
+                  <span className="font-medium">Update Account</span>
+                </button>
 
-                {/* Theme toggle row */}
-                <div className="flex items-center justify-between px-4 py-3">
-                  <div className="flex items-center gap-3 text-sm text-[#222222]">
-                    <span className="text-[#888888]">
-                      {darkMode ? (
-                        <Moon size={15} />
-                      ) : (
-                        <Sun size={15} />
-                      )}
-                    </span>
+                {/* Billing */}
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#222222] hover:bg-[#F7F7F7] active:bg-[#F0F0F0] transition-colors duration-100"
+                  onClick={() => { navigate('/billing'); setMoreOpen(false); }}
+                >
+                  <span className="text-[#888888]"><CreditCard size={15} /></span>
+                  <span className="font-medium">Billing</span>
+                </button>
 
-                    <span className="font-medium">Theme</span>
+                {/* Upgrade Plan */}
+                <button
+                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-white bg-gradient-to-r from-[#8B5CF6] to-[#A855F7] hover:from-[#7C3AED] hover:to-[#9333EA] active:scale-[0.98] transition-all duration-200"
+                  onClick={() => { navigate('/upgrade'); setMoreOpen(false); }}
+                >
+                  <div className="flex items-center gap-3">
+                    <Zap size={15} className="text-yellow-300" />
+                    <span className="font-semibold">Upgrade Plan</span>
                   </div>
+                  <span className="text-[10px] bg-white/20 px-2 py-0.5 rounded-full text-white/90">PRO</span>
+                </button>
 
-                  <button
-                    onClick={() => setDarkMode((v) => !v)}
-                    className={`relative w-11 h-6 rounded-full transition-colors duration-200 ${
-                      darkMode ? 'bg-[#111111]' : 'bg-[#DDDDDD]'
-                    }`}
-                  >
-                    <span
-                      className={`absolute top-1 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
-                        darkMode ? 'translate-x-6' : 'translate-x-1'
-                      }`}
-                    />
-                  </button>
-                </div>
+                {/* WhatsApp Support */}
+                <button
+                  className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#222222] hover:bg-[#F7F7F7] active:bg-[#F0F0F0] transition-colors duration-100"
+                  onClick={() => window.open('https://wa.me/919110112197', '_blank')}
+                >
+                  <span className="text-[#25D366]"><MessageCircle size={15} /></span>
+                  <span className="font-medium">WhatsApp Support</span>
+                </button>
+
               </div>
 
               {/* Logout */}
               <div className="border-t border-[#F2F2F2] py-1">
-                <button className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#EF4444] hover:bg-[#FFF5F5] active:bg-[#FEE2E2] transition-colors duration-100">
+                <button className="w-full flex items-center gap-3 px-4 py-3 text-sm text-[#EF4444] hover:bg-[#FFF5F5] active:bg-[#FEE2E2] transition-colors duration-100" onClick={handleLogout}>
                   <LogOut size={15} />
 
                   <span className="font-medium">Log out</span>
@@ -156,58 +164,59 @@ export default function MobileBottomNav() {
           paddingBottom: 'max(8px, env(safe-area-inset-bottom))',
         }}
       >
+        {/* Regular nav items */}
         {mainItems.map((item) => {
           const isActive = item.path
             ? location.pathname === item.path
             : false;
 
-          const isMoreActive = item.isMore && moreOpen;
-
           return (
             <button
               key={item.label}
-              onClick={() => {
-                if (item.isMore) {
-                  setMoreOpen((v) => !v);
-                } else if (item.path) {
-                  navigate(item.path);
-                }
-              }}
-              className={`relative flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-150 min-w-[56px] ${
-                isActive || isMoreActive
-                  ? 'text-[#111111]'
-                  : 'text-[#BBBBBB] hover:text-[#888888] active:text-[#555555]'
-              }`}
+              onClick={() => navigate(item.path)}
+              className={`relative flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-150 min-w-[56px] ${isActive
+                ? 'text-[#111111]'
+                : 'text-[#666666] hover:text-[#333333] active:text-[#111111]'
+                }`}
             >
-              {/* Active indicator dot */}
-              {(isActive || isMoreActive) && (
+              {isActive && (
                 <motion.span
                   layoutId="mobile-nav-active"
                   className="absolute -top-0.5 w-1 h-1 rounded-full bg-[#111111]"
-                  transition={{
-                    type: 'spring',
-                    stiffness: 400,
-                    damping: 30,
-                  }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
               )}
-
-              <span
-                className={`transition-transform duration-150 ${
-                  isActive || isMoreActive
-                    ? 'scale-110'
-                    : 'scale-100'
-                }`}
-              >
+              <span className={`transition-transform duration-150 ${isActive ? 'scale-110' : 'scale-100'}`}>
                 {item.icon}
               </span>
-
               <span className="text-[10px] font-semibold tracking-tight leading-none">
                 {item.label}
               </span>
             </button>
           );
         })}
+
+        {/* Avatar Button — More dropdown trigger */}
+        <button
+          onClick={() => setMoreOpen((v) => !v)}
+          className="relative flex flex-col items-center gap-1 px-4 py-2 rounded-xl transition-all duration-150 min-w-[56px]"
+        >
+          {/* Active ring jab dropdown open ho */}
+          <div className={`relative transition-all duration-150 ${moreOpen ? 'scale-110' : 'scale-100'}`}>
+            <div className={`w-8 h-8 rounded-full bg-gradient-to-br from-[#C9B99A] to-[#8B7355] flex items-center justify-center transition-all duration-150 ${moreOpen
+              ? 'ring-2 ring-[#111111] ring-offset-1'
+              : 'ring-2 ring-[#E5E5E5]'
+              }`}>
+              <span className="text-white text-[11px] font-bold">
+                {name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
+              </span>
+            </div>
+          </div>
+          <span className={`text-[10px] font-semibold tracking-tight leading-none transition-colors duration-150 ${moreOpen ? 'text-[#111111]' : 'text-[#666666]'
+            }`}>
+            More
+          </span>
+        </button>
       </nav>
     </div>
   );

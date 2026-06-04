@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import API from "../services/api";
 
 import {
   ImagePlus,
@@ -25,6 +26,7 @@ import tryOn from '../assets/cards/try-on.jpg';
 import createModel from '../assets/cards/create-model.jpg';
 import modelSwap from '../assets/cards/model-swap.jpg';
 import editFashion from '../assets/cards/edit-fashion.jpg';
+import { useNavigate } from 'react-router-dom';
 
 const featureCards = [
   {
@@ -79,6 +81,27 @@ const fadeInUp = {
 
 export default function DashboardHome() {
   const [prompt, setPrompt] = useState('');
+
+  const navigate = useNavigate();
+
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => {
+
+    fetchHistory();
+
+  }, []);
+
+  const fetchHistory = async () => {
+    try {
+      const res =
+        await API.get("/history");
+      setHistory(res.data);
+    }
+    catch (err) {
+      console.log(err);
+    }
+  };
 
   return (
     <div className="bg-[#F5F5F5]">
@@ -138,7 +161,10 @@ export default function DashboardHome() {
                   </p>
 
                   <div className="flex items-center gap-4">
-                    <button className="px-6 py-2.5 rounded-xl border-2 border-[#111111] text-[#111111] text-sm font-semibold hover:bg-[#111111] hover:text-white transition-all duration-200">
+                    <button 
+                      onClick={() => navigate('/studio')}
+                      className="px-6 py-2.5 rounded-xl border-2 border-[#111111] text-[#111111] text-sm font-semibold hover:bg-[#111111] hover:text-white transition-all duration-200"
+                    >
                       Try-On Studio
                     </button>
 
@@ -279,22 +305,85 @@ export default function DashboardHome() {
             </div>
 
             {/* Empty state */}
-            <div className="bg-white rounded-2xl border border-[#E5E5E5] shadow-sm px-8 py-14 text-center">
-              <div className="w-14 h-14 rounded-2xl bg-[#F5F5F5] border border-[#EBEBEB] flex items-center justify-center mx-auto mb-4">
-                <Images size={22} className="text-[#CCCCCC]" />
-              </div>
-
-              <p className="text-[#888888] text-sm leading-relaxed">
-                No generations yet.{' '}
-                <a
-                  href="/studio"
-                  className="text-[#111111] font-semibold underline underline-offset-2 hover:text-[#555555] transition-colors"
-                >
-                  Head to the studio
-                </a>{' '}
-                to start creating.
-              </p>
-            </div>
+            {
+              history.length === 0 ?
+                (
+                  <div className="bg-white rounded-2xl border border-[#E5E5E5] shadow-sm px-8 py-14 text-center">
+                    <div className="w-14 h-14 rounded-2xl bg-[#F5F5F5] border border-[#EBEBEB] flex items-center justify-center mx-auto mb-4">
+                      <Images
+                        size={22}
+                        className="text-[#CCCCCC]"
+                      />
+                    </div>
+                    <p className="text-[#888888] text-sm leading-relaxed">
+                      No generations yet.
+                      <a
+                        href="/studio"
+                        className="text-[#111111] font-semibold underline ml-1"
+                      >
+                        Head to studio
+                      </a>
+                    </p>
+                  </div>
+                )
+                :
+                (
+                  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
+                    {history.map((item) => (
+                      <div
+                        key={item.id}
+                        className="relative aspect-[3/4] rounded-xl overflow-hidden border border-[#E5E5E5] group bg-white"
+                      >
+                        <img
+                          src={item.imageUrl}
+                          alt={item.productName}
+                          className="w-full h-full object-cover"
+                        />
+                        {/* hover overlay */}
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+                          <button
+                            onClick={() =>
+                              window.open(
+                                item.imageUrl,
+                                "_blank"
+                              )
+                            }
+                            className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+                          >
+                            <Expand size={14} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              const a =
+                                document.createElement("a");
+                              a.href = item.imageUrl;
+                              a.download =
+                                item.productName;
+                              a.click();
+                            }}
+                            className="w-8 h-8 rounded-full bg-white/90 flex items-center justify-center"
+                          >
+                            <Download size={14} />
+                          </button>
+                        </div>
+                        {/* footer */}
+                        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-3">
+                          <p className="text-white text-xs font-semibold truncate">
+                            {item.productName}
+                          </p>
+                          <p className="text-[10px] text-white/70">
+                            {
+                              new Date(
+                                item.createdAt
+                              ).toLocaleDateString()
+                            }
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )
+            }
 
             {/* Grid placeholder */}
             <div className="hidden grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 mt-4">
