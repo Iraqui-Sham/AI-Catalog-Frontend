@@ -1,5 +1,5 @@
 import MainLayout from "../layouts/MainLayout";
-import ImageGallery from "../components/ImageGallery";
+import ImageGallery from "../Components/ImageGallery";
 
 export default function Images() {
   return (
