@@ -158,7 +158,7 @@ export default function Sidebar() {
                 </button>
 
                 {/* Upgrade Plan */}
-                <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[#8B5CF6] via-[#A855F7] to-[#8B5CF6] hover:from-[#9333EA] hover:via-[#A855F7] hover:to-[#9333EA] hover:shadow-md hover:shadow-purple-200 transition-all duration-200">
+                <button onClick={() => navigate("/pricing")} className="w-full flex items-center gap-3 px-4 py-2.5 text-sm font-semibold text-white bg-gradient-to-r from-[#8B5CF6] via-[#A855F7] to-[#8B5CF6] hover:from-[#9333EA] hover:via-[#A855F7] hover:to-[#9333EA] hover:shadow-md hover:shadow-purple-200 transition-all duration-200">
                   <Zap size={14} className="text-yellow-300" />
                   Upgrade Plan
                 </button>

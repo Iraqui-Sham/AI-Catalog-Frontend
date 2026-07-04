@@ -18,7 +18,7 @@ export default function Aifashion() {
             🇮🇳 Made for India
         </span>
     </nav>
-    <header class="max-w-4xl mx-auto text-center px-6 py-12 md:py-16">
+    <header class="max-w-4xl mx-auto text-center px-4 sm:px-6 pt-4 pb-12 md:pb-16">
         <h1
             class="text-4xl md:text-5xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-tight">
             Turn Any Raw Product Photo<br/>

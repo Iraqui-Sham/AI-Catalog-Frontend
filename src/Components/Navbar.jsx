@@ -1,10 +1,13 @@
 ﻿import { Building2, ChevronDown, Zap, Scissors } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
 
   const [credits, setCredits] = useState(null);
   const [userName, setUserName] = useState("");
+
+  const navigate = useNavigate();
 
   // Credits sync karne ka function
   const syncCredits = () => {
@@ -18,7 +21,7 @@ export default function Navbar() {
       try {
         const user = JSON.parse(savedUser);
         setUserName(user?.name || "");
-      } catch {}
+      } catch { }
     }
   };
 
@@ -90,8 +93,10 @@ export default function Navbar() {
         </div>
 
         {/* Upgrade button */}
-        <button className="flex items-center gap-1 px-2.5 sm:px-3.5 py-2 rounded-xl bg-[#111111] text-white text-sm font-semibold hover:bg-[#2a2a2a] active:bg-[#000000] transition-colors duration-150 whitespace-nowrap">
-
+        <button
+          onClick={() => navigate("/pricing")}
+          className="flex items-center gap-1 px-2.5 sm:px-3.5 py-2 rounded-xl bg-[#111111] text-white text-sm font-semibold hover:bg-[#2a2a2a] active:bg-[#000000] transition-colors duration-150 whitespace-nowrap"
+        >
           <Zap
             size={13}
             className="fill-white flex-shrink-0"

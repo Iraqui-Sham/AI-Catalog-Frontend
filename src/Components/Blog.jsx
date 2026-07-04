@@ -3,7 +3,7 @@ import React from 'react'
 export default function Blog() {
   return (
     <>
-    <header className="max-w-7xl mx-auto px-4 py-12 text-center">
+    <header className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-12 text-center">
         <h1 className="text-4xl font-bold mb-4">FitVersion <span
                 className="text-orange-600">Blog</span></h1>
         <p className="text-gray-500 max-w-2xl mx-auto mb-8">

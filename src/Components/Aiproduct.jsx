@@ -1,8 +1,11 @@
 import React, { useState } from 'react'
+import { useNavigate } from "react-router-dom";
 
 export default function Aiproduct() {
     const [modalOpen, setModalOpen] = useState(false);
     const [photoCount, setPhotoCount] = useState(50);
+
+    const navigate = useNavigate();
 
     const openModal = () => setModalOpen(true);
     const closeModal = () => setModalOpen(false);
@@ -41,7 +44,7 @@ export default function Aiproduct() {
                     </p>
 
                     <button
-                        onClick={openModal}
+                        onClick={() => navigate("/createAccount")}
                         className="bg-orange-600 hover:bg-orange-700 text-white font-bold py-4 px-10 rounded-xl shadow-xl hover:scale-105 transition duration-300"
                     >
                         Start Free Trial

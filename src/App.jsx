@@ -36,6 +36,9 @@ function App() {
     "/upload",
     "/result",
     "/account",
+    "/login",
+    "/createAccount",
+    "/admin/login",
   ];
 
   const shouldHideHeader = hideHeaderRoutes.some(route =>
@@ -46,32 +49,34 @@ function App() {
     <>
       {!shouldHideHeader && <Header />}
 
-      <Routes>
-        {/* Public */}
-        <Route path="/" element={<PublicLayout><Homepage /></PublicLayout>} />
-        <Route path="/blogs" element={<Blog />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/aiproduct" element={<Aiproduct />} />
-        <Route path="/aifashion" element={<Aifashion />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/createAccount" element={<CreateAccount />} />
+      <div className={!shouldHideHeader ? "pt-16 sm:pt-20 [&>*:first-child>*:first-child]:!pt-0" : ""}>
+        <Routes>
+          {/* Public */}
+          <Route path="/" element={<Homepage />} />
+          <Route path="/blogs" element={<Blog />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/aiproduct" element={<Aiproduct />} />
+          <Route path="/aifashion" element={<Aifashion />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/createAccount" element={<CreateAccount />} />
 
-        {/* Admin — single wildcard route, AdminApp handles login + protected internally */}
-        {/* CHANGE KARO — dono add karo */}
-        <Route path="/admin" element={<AdminApp />} />
-        <Route path="/admin/*" element={<AdminApp />} />
+          {/* Admin — single wildcard route, AdminApp handles login + protected internally */}
+          {/* CHANGE KARO — dono add karo */}
+          <Route path="/admin" element={<AdminApp />} />
+          <Route path="/admin/*" element={<AdminApp />} />
 
-        {/* User Protected */}
-        <Route path="/studio" element={<ProtectedRoute><Studio /></ProtectedRoute>} />
-        <Route path="/images" element={<ProtectedRoute><Images /></ProtectedRoute>} />
-        <Route path="/billing" element={<ProtectedRoute><Billing /></ProtectedRoute>} />
-        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
-        <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
-        <Route path="/upload" element={<ProtectedRoute><Upload /></ProtectedRoute>} />
-        <Route path="/result" element={<ProtectedRoute><Result /></ProtectedRoute>} />
-        <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      </Routes>
+          {/* User Protected */}
+          <Route path="/studio" element={<ProtectedRoute><Studio /></ProtectedRoute>} />
+          <Route path="/images" element={<ProtectedRoute><Images /></ProtectedRoute>} />
+          <Route path="/billing" element={<ProtectedRoute><Billing /></ProtectedRoute>} />
+          <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+          <Route path="/account" element={<ProtectedRoute><AccountPage /></ProtectedRoute>} />
+          <Route path="/upload" element={<ProtectedRoute><Upload /></ProtectedRoute>} />
+          <Route path="/result" element={<ProtectedRoute><Result /></ProtectedRoute>} />
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+        </Routes>
+      </div>
 
       {!shouldHideHeader && <Footer />}
     </>
