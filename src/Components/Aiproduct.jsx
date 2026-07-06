@@ -56,8 +56,8 @@ export default function Aiproduct() {
 
                 </div>
             </header>
-            <main className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
+            <main className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8">
                     <div className="md:col-span-4">
                         <h3
                             className="text-sm font-bold text-gray-500 mb-4 uppercase tracking-wider">
@@ -123,12 +123,12 @@ export default function Aiproduct() {
                     </div>
                 </div>
             </main>
-            <section className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden">
-                <div className="flex justify-center items-center gap-2 mb-8">
+            <section className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto flex justify-center items-center gap-2 mb-8">
                     <span className="text-sm font-semibold text-gray-600">✨ Made with
                         FitVissionAI</span>
                 </div>
-                <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+                <div className="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
                     <div className="relative group cursor-pointer">
                         <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?q=80&w=400&h=500&fit=crop"
                             className="rounded-xl w-full h-64 object-cover grayscale-[0.2] group-hover:grayscale-0 transition duration-300 shadow-md"
@@ -185,8 +185,8 @@ export default function Aiproduct() {
                     </div>
                 </div>
             </section>
-            <main className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            <main className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden px-4 sm:px-6 lg:px-8">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
                     <div className="lg:col-span-4 space-y-8">
                         <div className="max-w-md">
                             <h1
@@ -331,7 +331,7 @@ export default function Aiproduct() {
                     </div>
                 </div>
             </main>
-            <section className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden">
+            <section className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 py-20 overflow-hidden px-4 sm:px-6 lg:px-8">
                 <div className="text-center mb-12">
                     <h2 className="text-3xl font-extrabold text-slate-900 mb-2">
                         Professional Photography at <span className="text-orange-600">₹10

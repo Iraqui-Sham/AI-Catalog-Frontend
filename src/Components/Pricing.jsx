@@ -13,7 +13,7 @@ export default function Pricing() {
 
     return (
         <>
-            <section className="relative overflow-hidden bg-[#fafafa] pt-6 pb-16 sm:pt-8 sm:pb-20 px-4 sm:px-6 lg:px-8">
+            <section className="relative overflow-hidden bg-[#fafafa] pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8">
                 {/* Background Decor */}
                 <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-orange-50/50 via-transparent to-transparent -z-10"></div>
 

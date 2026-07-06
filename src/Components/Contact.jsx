@@ -7,7 +7,7 @@ export default function Contact() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[280px] sm:h-[320px] bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-orange-100/40 via-transparent to-transparent -z-10"></div>
 
       {/* Header Section */}
-      <header className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 pt-6 pb-8 sm:pt-8 sm:pb-10 px-4 sm:px-6 text-center overflow-hidden">
+      <header className="relative bg-gradient-to-br from-slate-50 via-white to-orange-50 pb-8 sm:pb-10 px-4 sm:px-6 text-center overflow-hidden">
         <span className="inline-block bg-orange-100 text-orange-600 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-full mb-3 sm:mb-4 shadow-sm">
           Support Center
         </span>
@@ -44,9 +44,9 @@ export default function Contact() {
 
             {/* WhatsApp - Priority Card */}
             <a href="https://wa.me/918092492943" target="_blank" rel="noreferrer"
-               className="group flex items-center p-3 rounded-xl bg-gradient-to-r from-green-50 to-white border border-green-100 hover:border-green-400 hover:shadow-md hover:shadow-green-100 transition-all duration-300 active:scale-[0.98]">
+              className="group flex items-center p-3 rounded-xl bg-gradient-to-r from-green-50 to-white border border-green-100 hover:border-green-400 hover:shadow-md hover:shadow-green-100 transition-all duration-300 active:scale-[0.98]">
               <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-lg shadow-sm flex items-center justify-center mr-3 group-hover:scale-110 transition-transform flex-shrink-0">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-4 h-4 sm:w-5 sm:h-5" alt="WA"/>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" className="w-4 h-4 sm:w-5 sm:h-5" alt="WA" />
               </div>
               <div className="flex-grow min-w-0">
                 <p className="text-[8px] font-black text-green-600 uppercase tracking-widest mb-0.5">Fastest Response</p>
@@ -61,7 +61,7 @@ export default function Contact() {
               { label: "Email", value: "support@fitversion.app", icon: "✉️", link: "mailto:support@fitversion.app" }
             ].map((item, i) => (
               <a key={i} href={item.link}
-                 className="group flex items-center p-3 rounded-xl bg-slate-50 border border-transparent hover:border-orange-200 hover:bg-white transition-all duration-300 hover:shadow-md hover:shadow-orange-50 active:scale-[0.98]">
+                className="group flex items-center p-3 rounded-xl bg-slate-50 border border-transparent hover:border-orange-200 hover:bg-white transition-all duration-300 hover:shadow-md hover:shadow-orange-50 active:scale-[0.98]">
                 <div className="w-9 h-9 sm:w-10 sm:h-10 bg-white rounded-lg shadow-sm flex items-center justify-center text-sm sm:text-base mr-3 group-hover:scale-110 transition-transform flex-shrink-0">
                   {item.icon}
                 </div>

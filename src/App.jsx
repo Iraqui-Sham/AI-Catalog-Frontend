@@ -49,7 +49,7 @@ function App() {
     <>
       {!shouldHideHeader && <Header />}
 
-      <div className={!shouldHideHeader ? "pt-16 sm:pt-20 [&>*:first-child>*:first-child]:!pt-0" : ""}>
+      <div className={!shouldHideHeader ? "pt-16 sm:pt-20" : ""}>
         <Routes>
           {/* Public */}
           <Route path="/" element={<Homepage />} />
