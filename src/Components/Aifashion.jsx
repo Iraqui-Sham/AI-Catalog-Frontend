@@ -22,7 +22,7 @@ export default function Aifashion() {
         <h1
             class="text-4xl md:text-5xl font-extrabold tracking-tight text-[#0F172A] mb-6 leading-tight">
             Turn Any Raw Product Photo<br/>
-            into <span class="text-[#FF6B35]">Studio Photoshoot</span> — in
+            into <span class="text-brand-500">Studio Photoshoot</span> — in
             Minutes
         </h1>
         <p
@@ -34,7 +34,7 @@ export default function Aifashion() {
         </p>
         <div class="flex flex-col items-center gap-4">
             <button onClick={openModal}
-                class="bg-[#FF4D00] hover:bg-[#E64500] text-white font-bold py-4 px-12 rounded-lg text-lg transition-all shadow-lg hover:shadow-orange-200 active:scale-95">
+                class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-4 px-12 rounded-lg text-lg transition-all shadow-lg hover:shadow-orange-200 active:scale-95">
                 Start Free Trial
             </button>
             <p class="text-slate-400 text-sm font-medium">₹10 per photo,
@@ -214,7 +214,7 @@ export default function Aifashion() {
         </div>
         <div class="flex justify-center mt-16">
             <button onClick={openModal}
-                class="bg-[#FF4D00] hover:bg-[#E64500] text-white font-bold py-3 px-8 rounded-lg transition-all shadow-md active:scale-95">
+                class="bg-brand-500 hover:bg-brand-600 text-white font-bold py-3 px-8 rounded-lg transition-all shadow-md active:scale-95">
                 Get Started Now
             </button>
         </div>

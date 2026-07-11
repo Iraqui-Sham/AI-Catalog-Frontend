@@ -1,17 +1,40 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ai-image genration</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
-        rel="stylesheet">
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
-  </body>
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ai-image genration</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#fff4ec', 100: '#ffe4d1', 200: '#ffc7a3', 300: '#ffa26b',
+              400: '#fa7d3d', 500: '#f05a1a', 600: '#d8480f', 700: '#b3390d',
+              800: '#8f2f11', 900: '#742810',
+            },
+            surface: {
+              50: '#fafaf8', 100: '#f7f6f3', 150: '#f0efe9', 200: '#ededea',
+              250: '#e8e7e2', 300: '#e2e1dc', 350: '#e0dfdb', 400: '#d0cfc8',
+              450: '#c4c3bc', 500: '#aeada6', 600: '#9e9e98', 700: '#6b6b67',
+              800: '#3a3a37', 850: '#2e2e2b', 900: '#1a1a18',
+            },
+          },
+        },
+      },
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <div id="root"></div>
+  <script type="module" src="/src/main.jsx"></script>
+</body>
+
 </html>

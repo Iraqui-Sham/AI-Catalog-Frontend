@@ -1,13 +1,14 @@
 ﻿import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "AI Fashion", path: "/aifashion" },
+    //{ name: "AI Fashion", path: "/aifashion" },
     { name: "Blog", path: "/blogs" },
     { name: "Pricing", path: "/pricing" },
     { name: "Contact us", path: "/contact" },
@@ -31,24 +32,42 @@ export default function Header() {
 
             {/* Logo Section */}
             <Link to="/" className="flex items-center gap-2 group cursor-pointer no-underline">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-7 sm:h-8 bg-gradient-to-b from-orange-500 to-pink-600 rounded-full animate-pulse"></div>
-                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900">
-                  FitVeSion<span className="italic font-light text-orange-500">AI</span>
+              <div className="flex items-center gap-2.5">
+                <div className="w-2 h-7 sm:h-8 bg-gradient-to-b from-brand-500 to-pink-600 rounded-full shadow-[0_0_10px_rgba(240,90,26,0.35)]"></div>
+                <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-slate-900 group-hover:text-brand-600 transition-colors">
+                  FitVeSion<span className="italic font-light text-brand-500">AI</span>
                 </h1>
               </div>
             </Link>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex items-center space-x-1">
-              {navLinks.slice(0, 4).map((link) => (
-                <Link key={link.name} to={link.path} className="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-full transition-all">
-                  {link.name}
-                </Link>
-              ))}
+              {navLinks.filter((link) => link.name !== "Contact us").map((link) => {
+                const isActive = location.pathname === link.path;
+                return (
+                  <Link
+                    key={link.name}
+                    to={link.path}
+                    className={`relative px-4 py-2 text-sm font-semibold tracking-wide rounded-full transition-all duration-200 ${isActive
+                      ? "text-brand-600 bg-brand-50"
+                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                      }`}
+                  >
+                    {link.name}
+                    {isActive && (
+                      <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-brand-500" />
+                    )}
+                  </Link>
+                );
+              })}
               <div className="h-4 w-[1px] bg-slate-300 mx-2"></div>
-              {navLinks.slice(4).map((link) => (
-                <Link key={link.name} to={link.path} className="px-4 py-2 text-sm font-semibold text-slate-600 hover:text-slate-900">
+              {navLinks.filter((link) => link.name === "Contact us").map((link) => (
+                <Link
+                  key={link.name}
+                  to={link.path}
+                  className={`px-4 py-2 text-sm font-semibold tracking-wide transition-colors ${location.pathname === link.path ? "text-brand-600" : "text-slate-600 hover:text-slate-900"
+                    }`}
+                >
                   {link.name}
                 </Link>
               ))}
@@ -57,7 +76,7 @@ export default function Header() {
             {/* Desktop Buttons */}
             <div className="hidden md:flex items-center gap-3">
               <Link to="/login" className="text-sm font-bold text-slate-600 px-4 py-2 hover:text-slate-900">Log in</Link>
-              <button onClick={() => navigate("/createAccount")} className="bg-[#f05a1a] text-white px-6 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-orange-200">
+              <button onClick={() => navigate("/createAccount")} className="bg-brand-500 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:brightness-110 transition-all active:scale-95 shadow-lg shadow-orange-200">
                 Try for Free
               </button>
             </div>
@@ -107,28 +126,36 @@ export default function Header() {
         </div>
 
         {/* Drawer Links */}
-        <div className="flex-1 overflow-y-auto py-2">
-          {navLinks.map((link) => (
-            <Link
-              key={link.name}
-              to={link.path}
-              onClick={closeMenu}
-              className="flex items-center justify-between px-5 py-3.5 text-sm font-semibold text-slate-700 border-b border-slate-50 hover:bg-orange-50 hover:text-orange-600 active:bg-orange-50 transition-colors"
-            >
-              {link.name}
-              <svg className="w-4 h-4 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          ))}
+        {/* Drawer Links */}
+        <div className="py-2">
+          {navLinks.map((link) => {
+            const isActive = location.pathname === link.path;
+            return (
+              <Link
+                key={link.name}
+                to={link.path}
+                onClick={closeMenu}
+                className={`flex items-center justify-between px-5 py-3.5 text-sm font-semibold border-b border-slate-50 transition-colors ${isActive
+                  ? "text-brand-600 bg-brand-50 border-l-[3px] border-l-brand-500"
+                  : "text-slate-700 hover:bg-brand-50 hover:text-brand-600 active:bg-brand-50"
+                  }`}
+              >
+                {link.name}
+                <svg className={`w-4 h-4 ${isActive ? "text-brand-400" : "text-slate-300"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            );
+          })}
         </div>
 
         {/* Drawer Footer — sticky CTA */}
-        <div className="flex-shrink-0 border-t border-slate-100 p-5 space-y-3 bg-white">
+        {/* Drawer Footer — sticky CTA */}
+        <div className="flex-shrink-0 border-t border-slate-100 p-5 space-y-2.5 bg-white">
           <Link
             to="/login"
             onClick={closeMenu}
-            className="block text-center font-bold text-slate-600 py-2.5 rounded-xl hover:bg-slate-50 transition-colors"
+            className="block w-full text-center font-bold text-slate-700 py-3 rounded-xl border border-slate-200 hover:bg-slate-50 hover:border-slate-300 transition-colors"
           >
             Log in
           </Link>
@@ -137,7 +164,7 @@ export default function Header() {
               closeMenu();
               navigate("/createAccount");
             }}
-            className="w-full bg-[#f05a1a] text-white py-3.5 rounded-xl font-bold shadow-lg shadow-orange-200 active:scale-[0.98] transition-transform"
+            className="w-full bg-gradient-to-r from-brand-500 to-brand-600 text-white py-3.5 rounded-xl font-bold shadow-lg shadow-brand-200 active:scale-[0.98] transition-transform hover:shadow-xl"
           >
             Try for Free
           </button>
@@ -145,4 +172,4 @@ export default function Header() {
       </div>
     </>
   );
-}
+} 
